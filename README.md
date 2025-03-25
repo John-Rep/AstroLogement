@@ -1,5 +1,8 @@
 # Pour faire marcher ce projet en locale
 
+### Entrez dans le dossier
+```cd AstroLogement```
+
 ### Clone le projet
 
 ### Faites la commande : composer install
