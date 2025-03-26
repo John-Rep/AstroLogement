@@ -80,6 +80,13 @@ class Location
         return $this;
     }
 
+    public function removePhoto(?int $photo): static
+    {
+        unset($this->photos[$photo]);
+
+        return $this;
+    }
+
     public function setPhotos(?array $photos): static
     {
         $this->photos = $photos;

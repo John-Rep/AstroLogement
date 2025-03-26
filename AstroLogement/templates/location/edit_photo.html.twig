@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Location index{% endblock %}
+
+{% block body %}
+    <h1>Modifier les photos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Photos</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for index, photo in location.photos %}
+            <tr>
+                <td>
+                    <img src="{{ asset(photo) }}" alt="Image"/>
+                </td>
+                <td>
+                    {{ include('location/_remove_photo_form.html.twig') }}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_location_photo_add', {'id': location.id}) }}">ajouter photo</a>
+    <a href="{{ path('app_location_index') }}">back to list</a>
+{% endblock %}

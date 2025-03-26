@@ -34,7 +34,7 @@ final class LocationController extends AbstractController{
             $entityManager->persist($location);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_location_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_location_photo_edit', [ "id" => $location->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('location/new.html.twig', [
@@ -43,7 +43,7 @@ final class LocationController extends AbstractController{
         ]);
     }
 
-    #[Route('/photo/{id}', name: 'app_location_photo_add', methods: ['GET', 'POST'])]
+    #[Route('/{id}/photo', name: 'app_location_photo_add', methods: ['GET', 'POST'])]
     public function addPhoto(Request $request, Location $location, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PhotoType::class);
@@ -57,20 +57,44 @@ final class LocationController extends AbstractController{
                 $fileInfo = pathinfo($imageFile->getClientOriginalName());
                 $newFilename = $slugger->slug($fileInfo['filename']) . "-" . uniqid() . "." . $fileInfo['extension'];
 
-                $imageFile->move($this->getParameter("kernel.project_dir") ."/public/photos", $newFilename);
+                $imageFile->move($this->getParameter("photos_directory"), $newFilename);
                 $location->addPhoto("photos/" . $newFilename);
 
                 $entityManager->flush();
             }
             
 
-            return $this->redirectToRoute('app_location_photo_add', [ "id" => $location->getId() ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_location_photo_edit', [ "id" => $location->getId() ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('location/new.html.twig', [
-            'location' => $location,
+        return $this->render('location/new_photo.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}/photo/edit', name: 'app_location_photo_edit', methods: ['GET', 'POST'])]
+    public function editPhoto(Request $request, Location $location, EntityManagerInterface $entityManager): Response
+    {
+        return $this->render('location/edit_photo.html.twig', [
+            'location' => $location,
+        ]);
+    }
+
+    #[Route('/{id}/photo/{photo}', name: 'app_location_photo_remove', methods: ['POST'])]
+    public function removePhoto(Request $request, Location $location, int $photo, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('remove'.$location->getId(), $request->getPayload()->getString('_token'))) {
+            $photoPath = $this->getParameter('kernel.project_dir') . "/public/" . $location->getPhotos()[$photo];
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
+            $location->removePhoto($photo);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_location_photo_edit', [
+            'id' => $location->getId()
+        ], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_location_show', methods: ['GET'])]
