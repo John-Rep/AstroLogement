@@ -3,23 +3,38 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </head>
+
     <body>
-        {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.email }}, <a href="{{ path('app_logout') }}">Logout</a><br>
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a class="navbar-brand" href="{{ path('app_home') }}">
+                    <img src="{{ asset('images/logo.webp') }}" alt="Logo" class="navbar-logo">
+                    AstroLogement
+                </a>
+
+                <ul class="navbar-links">
+                    <li><a href="{{ path('app_location_index') }}">Locations</a></li>
+                    <li><a href="{{ path('app_message_home') }}">Messagerie</a></li>
+                </ul>
+
+                <ul class="navbar-auth">
+                    {% if app.user %}
+                        <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_login') }}">Connexion</a></li>
+                        <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                    {% endif %}
+                </ul>
             </div>
-        {% else %}
-            <div class="mb-3">
-                You are not logged in, <a href="{{ path('app_login') }}">Login</a>
-            </div>
-        {% endif %}
-        {% block body %}{% endblock %}
+        </nav>
+
+        <main class="content">
+            {% block body %}{% endblock %}
+        </main>
     </body>
 </html>

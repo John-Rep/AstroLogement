@@ -1,3 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie{% endblock %}
+
+{% block body %}
+
 <h2>Conversation avec {{ receiver }}</h2>
 
 <div id="messages-container">
@@ -19,3 +25,5 @@
             });
     }, 5000);
 </script>
+
+{% endblock %}
