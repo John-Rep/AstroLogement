@@ -11,13 +11,14 @@
 John Replogle possède le secret
 
 ### Relier une base de données
-Créer le container docker :
-
-
+Créer le container docker :  
 ```docker run --name AstroLogement -p 3307:3306 -e MYSQL_DATABASE=AstroLogement -e MYSQL_ROOT_PASSWORD=SpaceBnB -d mysql```
 
 
-Créer la base de données : 
-
-
+Créer la base de données :  
 ```symfony console doctrine:database:create```
+
+
+Installer les dépendances nécessaires :  
+```composer require symfony/maker-bundle```  
+```composer require symfony/twig-bundle```
