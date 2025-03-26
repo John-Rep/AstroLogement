@@ -57,6 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $messagesRecus;
 
     /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'user')]
+    private Collection $reservations;
+
+    /**
      * @var Collection<int, Avis>
      */
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'user')]
@@ -66,6 +72,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->locations = new ArrayCollection();
         $this->messagesRecus = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
         $this->avis = new ArrayCollection();
     }
 
@@ -244,6 +251,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 }
 
     /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Avis>
      */
     public function getAvis(): Collection
@@ -251,22 +288,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->avis;
     }
 
-    public function addAvi(Avis $avi): static
+    public function addAvis(Avis $avis): static
     {
-        if (!$this->avis->contains($avi)) {
-            $this->avis->add($avi);
-            $avi->setUser($this);
+        if (!$this->avis->contains($avis)) {
+            $this->avis->add($avis);
+            $avis->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeAvi(Avis $avi): static
+    public function removeAvis(Avis $avis): static
     {
-        if ($this->avis->removeElement($avi)) {
+        if ($this->avis->removeElement($avis)) {
             // set the owning side to null (unless already changed)
-            if ($avi->getUser() === $this) {
-                $avi->setUser(null);
+            if ($avis->getUser() === $this) {
+                $avis->setUser(null);
             }
         }
 
