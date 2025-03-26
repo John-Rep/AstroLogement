@@ -31,6 +31,7 @@ final class LocationController extends AbstractController{
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $location->setUser($this->getUser());
             $entityManager->persist($location);
             $entityManager->flush();
 

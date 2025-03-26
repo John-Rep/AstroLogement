@@ -20,10 +20,6 @@ class LocationType extends AbstractType
             ->add('zone')
             ->add('maxVoyageurs')
             ->add('cout')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 
