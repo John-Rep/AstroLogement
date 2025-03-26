@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Avis;
+use App\Entity\Location;
 use App\Form\AvisType;
 use App\Repository\AvisRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,38 +23,40 @@ final class AvisController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_avis_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'app_avis_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, Location $location, EntityManagerInterface $entityManager): Response
     {
-        $avi = new Avis();
-        $form = $this->createForm(AvisType::class, $avi);
+        $avis = new Avis();
+        $form = $this->createForm(AvisType::class, $avis);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($avi);
+            $avis->setLocation($location);
+            $avis->setUser($this->getUser());
+            $entityManager->persist($avis);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('avis/new.html.twig', [
-            'avi' => $avi,
+            'avis' => $avis,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_avis_show', methods: ['GET'])]
-    public function show(Avis $avi): Response
+    public function show(Avis $avis): Response
     {
         return $this->render('avis/show.html.twig', [
-            'avi' => $avi,
+            'avis' => $avis,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_avis_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Avis $avi, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Avis $avis, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AvisType::class, $avi);
+        $form = $this->createForm(AvisType::class, $avis);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -63,16 +66,16 @@ final class AvisController extends AbstractController
         }
 
         return $this->render('avis/edit.html.twig', [
-            'avi' => $avi,
+            'avis' => $avis,
             'form' => $form,
         ]);
     }
 
     #[Route('/{id}', name: 'app_avis_delete', methods: ['POST'])]
-    public function delete(Request $request, Avis $avi, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Avis $avis, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$avi->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($avi);
+        if ($this->isCsrfTokenValid('delete'.$avis->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($avis);
             $entityManager->flush();
         }
 

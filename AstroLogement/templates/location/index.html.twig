@@ -39,6 +39,8 @@
                 <td>
                     <a href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
                     <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                    <a href="{{ path('app_reservation_new', {'id': location.id}) }}">Create new Reservation</a>
+                    <a href="{{ path('app_avis_new', {'id': location.id}) }}">Create new Avis</a>
                 </td>
             </tr>
         {% else %}
