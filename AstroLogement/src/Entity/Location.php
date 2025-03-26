@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LocationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,6 +40,17 @@ class Location
     #[ORM\ManyToOne(inversedBy: 'locations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    /**
+     * @var Collection<int, Avis>
+     */
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'location')]
+    private Collection $avis;
+
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +163,36 @@ class Location
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): static
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): static
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getLocation() === $this) {
+                $avi->setLocation(null);
+            }
+        }
 
         return $this;
     }
