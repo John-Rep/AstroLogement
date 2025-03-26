@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Location;
 use App\Form\LocationType;
+use App\Form\PhotoType;
 use App\Repository\LocationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/location')]
 final class LocationController extends AbstractController{
@@ -33,6 +35,36 @@ final class LocationController extends AbstractController{
             $entityManager->flush();
 
             return $this->redirectToRoute('app_location_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('location/new.html.twig', [
+            'location' => $location,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/photo/{id}', name: 'app_location_photo_add', methods: ['GET', 'POST'])]
+    public function addPhoto(Request $request, Location $location, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(PhotoType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get("photo")->getData();
+
+            if ($imageFile) {
+
+                $fileInfo = pathinfo($imageFile->getClientOriginalName());
+                $newFilename = $slugger->slug($fileInfo['filename']) . "-" . uniqid() . "." . $fileInfo['extension'];
+
+                $imageFile->move($this->getParameter("kernel.project_dir") ."/public/photos", $newFilename);
+                $location->addPhoto("photos/" . $newFilename);
+
+                $entityManager->flush();
+            }
+            
+
+            return $this->redirectToRoute('app_location_photo_add', [ "id" => $location->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('location/new.html.twig', [

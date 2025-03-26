@@ -16,14 +16,13 @@ class LocationType extends AbstractType
         $builder
             ->add('titre')
             ->add('description')
-            ->add('photos')
             ->add('planete')
             ->add('zone')
             ->add('maxVoyageurs')
             ->add('cout')
             ->add('user', EntityType::class, [
                 'class' => User::class,
-'choice_label' => 'id',
+                'choice_label' => 'id',
             ])
         ;
     }

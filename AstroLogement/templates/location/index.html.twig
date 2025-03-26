@@ -25,7 +25,11 @@
                 <td>{{ location.id }}</td>
                 <td>{{ location.titre }}</td>
                 <td>{{ location.description }}</td>
-                <td>{{ location.photos ? location.photos|join(', ') : '' }}</td>
+                <td>
+                {% for photo in location.photos %}
+                    <img src="{{ asset(photo) }}" alt="Image"/>
+                {% endfor %}
+                </td>
                 <td>{{ location.planete }}</td>
                 <td>{{ location.zone }}</td>
                 <td>{{ location.maxVoyageurs }}</td>
@@ -33,6 +37,7 @@
                 <td>
                     <a href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
                     <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
+                    <a href="{{ path('app_location_photo_add', {'id': location.id}) }}">add photo</a>
                 </td>
             </tr>
         {% else %}

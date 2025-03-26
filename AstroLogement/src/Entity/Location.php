@@ -73,6 +73,13 @@ class Location
         return $this->photos;
     }
 
+    public function addPhoto(?string $photo): static
+    {
+        $this->photos[] = $photo;
+
+        return $this;
+    }
+
     public function setPhotos(?array $photos): static
     {
         $this->photos = $photos;
