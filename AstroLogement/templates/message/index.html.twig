@@ -1,0 +1,12 @@
+<h2>Commencer une discussion</h2>
+
+<ul>
+    {% for user in users %}
+        <li>
+            {{ user }}
+            <a href="{{ path('app_messages', {'id': user.id}) }}">Discuter</a>
+        </li>
+    {% else %}
+        <li>Aucun autre utilisateur</li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,10 @@
+<div class="messages">
+    {% for message in messages %}
+        <div class="{% if message.userOrig == app.user %}from-me{% else %}from-them{% endif %}">
+            <strong>{{ message.userOrig }}</strong><br>
+            {{ message.contenu }}
+            <br><small>{{ message.date|date('d/m/Y H:i') }}</small>
+        </div>
+        <hr>
+    {% endfor %}
+</div>
