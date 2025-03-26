@@ -22,3 +22,4 @@ Créer la base de données :
 Installer les dépendances nécessaires :  
 ```composer require symfony/maker-bundle```  
 ```composer require symfony/twig-bundle```
+```composer require symfony/asset```
