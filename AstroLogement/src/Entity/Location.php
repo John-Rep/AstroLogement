@@ -212,7 +212,7 @@ class Location
         return $this->avis;
     }
 
-    public function addAvi(Avis $avis): static
+    public function addAvis(Avis $avis): static
     {
         if (!$this->avis->contains($avis)) {
             $this->avis->add($avis);
@@ -222,7 +222,7 @@ class Location
         return $this;
     }
 
-    public function removeAvi(Avis $avis): static
+    public function removeAvis(Avis $avis): static
     {
         if ($this->avis->removeElement($avis)) {
             // set the owning side to null (unless already changed)
