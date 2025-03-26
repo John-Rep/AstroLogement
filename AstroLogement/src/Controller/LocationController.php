@@ -127,6 +127,12 @@ final class LocationController extends AbstractController{
     public function delete(Request $request, Location $location, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$location->getId(), $request->getPayload()->getString('_token'))) {
+            foreach ($location->getPhotos() as $photo) {
+                $photoPath = $this->getParameter('kernel.project_dir') . "/public/" . $photo;
+                if (file_exists($photoPath)) {
+                    unlink($photoPath);
+                }
+            }
             $entityManager->remove($location);
             $entityManager->flush();
         }
