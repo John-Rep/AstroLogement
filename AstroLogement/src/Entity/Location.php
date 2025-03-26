@@ -41,16 +41,23 @@ class Location
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+    }
+
     /**
      * @var Collection<int, Avis>
      */
     #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: 'location')]
     private Collection $avis;
 
-    public function __construct()
-    {
-        $this->avis = new ArrayCollection();
-    }
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'location')]
+    private Collection $reservations;
 
     public function getId(): ?int
     {
@@ -168,6 +175,36 @@ class Location
     }
 
     /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setLocation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getLocation() === $this) {
+                $reservation->setLocation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Avis>
      */
     public function getAvis(): Collection
@@ -175,22 +212,22 @@ class Location
         return $this->avis;
     }
 
-    public function addAvi(Avis $avi): static
+    public function addAvis(Avis $avis): static
     {
-        if (!$this->avis->contains($avi)) {
-            $this->avis->add($avi);
-            $avi->setLocation($this);
+        if (!$this->avis->contains($avis)) {
+            $this->avis->add($avis);
+            $avis->setLocation($this);
         }
 
         return $this;
     }
 
-    public function removeAvi(Avis $avi): static
+    public function removeAvis(Avis $avis): static
     {
-        if ($this->avis->removeElement($avi)) {
+        if ($this->avis->removeElement($avis)) {
             // set the owning side to null (unless already changed)
-            if ($avi->getLocation() === $this) {
-                $avi->setLocation(null);
+            if ($avis->getLocation() === $this) {
+                $avis->setLocation(null);
             }
         }
 
