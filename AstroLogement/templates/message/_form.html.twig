@@ -1,0 +1,17 @@
+<h2>Conversation avec {{ receiver.username }}</h2>
+
+<div class="messages">
+    {% for message in messages %}
+        <div class="{% if message.userOrig == app.user %}from-me{% else %}from-them{% endif %}">
+            <strong>{{ message.userOrig.username }} :</strong><br>
+            {{ message.contenu }}
+            <br><small>{{ message.date|date('H:i d/m/Y') }}</small>
+        </div>
+        <hr>
+    {% endfor %}
+</div>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Envoyer</button>
+{{ form_end(form) }}
