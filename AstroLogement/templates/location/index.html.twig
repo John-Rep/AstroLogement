@@ -2,8 +2,22 @@
 
 {% block title %}Location index{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
 {% block body %}
-    <h1>Location index</h1>
+    <h1 class="text-center">Location index</h1>
+
+    <div class="search-container">
+        <form method="get" action="{{ path('app_location_index') }}">
+            <input type="text" id="planete" name="planete" value="{{ planete }}" placeholder="Rechercher une destination...">
+            <button type="submit">
+                <i class="fas fa-search"></i> <!-- Icône loupe -->
+            </button>
+        </form>
+    </div>
 
     <table class="table">
         <thead>
@@ -53,3 +67,4 @@
 
     <a href="{{ path('app_location_new') }}">Create new</a>
 {% endblock %}
+
