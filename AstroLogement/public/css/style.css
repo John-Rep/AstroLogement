@@ -2,13 +2,13 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color:white !important;
-    background-color: #111111;
+    background-color: #2C2C2C;
 }
 
 /* NAVBAR */
 
 .astro-navbar {
-    background-color: #111111;
+    background-color: #2C2C2C;
     position : relative;
     color: white;
     display: flex;
