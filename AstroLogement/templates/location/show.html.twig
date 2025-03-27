@@ -5,46 +5,8 @@
 {% block body %}
     <h1>Location</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ location.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ location.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ location.description }}</td>
-            </tr>
-            <tr>
-                <th>Photos</th>
-                <td>{{ location.photos ? location.photos|join(', ') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Planete</th>
-                <td>{{ location.planete }}</td>
-            </tr>
-            <tr>
-                <th>Zone</th>
-                <td>{{ location.zone }}</td>
-            </tr>
-            <tr>
-                <th>MaxVoyageurs</th>
-                <td>{{ location.maxVoyageurs }}</td>
-            </tr>
-            <tr>
-                <th>Cout</th>
-                <td>{{ location.cout }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {{ include('location/_location.html.twig') }}
 
     <a href="{{ path('app_location_index') }}">back to list</a>
 
-    <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
-
-    {{ include('location/_delete_form.html.twig') }}
 {% endblock %}
