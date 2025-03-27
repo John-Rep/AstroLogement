@@ -3,13 +3,13 @@
 {% block title %}New Reservation{% endblock %}
 
 {% block body %}
-    <h1>Create new Reservation</h1>
+    <h1>Choisir les dates de votre réservation</h1>
 
     {% for messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-danger">{{ message }}</div>
-            {% endfor %}
+        {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
+    {% endfor %}
 
     {{ include('reservation/_form.html.twig') }}
 

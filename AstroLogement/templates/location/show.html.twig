@@ -1,12 +1,22 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/locations.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
 {% block title %}Location{% endblock %}
 
 {% block body %}
-    <h1>Location</h1>
+<div class="location-container">
+    <h1 class="location-title">Location</h1>
 
     {{ include('location/_location.html.twig') }}
 
+    <a class="location-title" href="{{ path('app_reservation_new', {'id': location.id}) }}">Réserver cette location</a>
+
     <a href="{{ path('app_location_index') }}">back to list</a>
+
+</div>
 
 {% endblock %}
