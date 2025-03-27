@@ -19,7 +19,7 @@ final class LocationController extends AbstractController{
     public function index(LocationRepository $locationRepository): Response
     {
         return $this->render('location/index.html.twig', [
-            'locations' => $locationRepository->findAll(),
+            'locations' => $locationRepository->findAllWithUser(),
         ]);
     }
 
