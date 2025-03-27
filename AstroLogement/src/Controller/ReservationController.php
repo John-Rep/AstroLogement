@@ -31,6 +31,20 @@ final class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($location->getUser() == $this->getUser()) {
+                $this->addFlash("Erreur", "Vous ne pouvez pas réserver votre location");
+                return $this->render('reservation/new.html.twig', [
+                    'reservation' => $reservation,
+                    'form' => $form,
+                ]);
+            }
+            if ($form->get('debut')->getData() >= $form->get('fin')->getData()) {
+                $this->addFlash("Erreur", "La date de fin doit être après la date de début");
+                return $this->render('reservation/new.html.twig', [
+                    'reservation' => $reservation,
+                    'form' => $form,
+                ]);
+            }
             $reservation->setLocation($location);
             $reservation->setUser($this->getUser());
             $entityManager->persist($reservation);

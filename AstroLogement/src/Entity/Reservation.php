@@ -15,7 +15,7 @@ class Reservation
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?bool $confirm = null;
+    private ?bool $confirm = false;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $debut = null;
