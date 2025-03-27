@@ -87,3 +87,40 @@
     font-size: 0.95rem;
     font-weight: bold;
 }
+
+.location-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+}
+
+.location-title {
+    text-align: center;
+}
+
+.location-box {
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;  /* Center horizontally */
+    justify-content: center; /* Center vertically */
+}
+
+.location-image {
+    display: grid; /* Use grid layout for images */
+    grid-template-columns: repeat(2, 1fr); /* Grid with responsive columns */
+    gap: 1rem;  /* Space between images */
+    max-width: 1000px;
+    width: 100%;
+}
+
+.location-image img {
+    width: 100%;
+    height: 200px; /* Fix height to avoid excessive gaps */
+    object-fit: cover; /* Ensures images fill their container without distorting */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
