@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Location;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,12 +12,24 @@ class LocationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
-            ->add('description')
-            ->add('planete')
-            ->add('zone')
-            ->add('maxVoyageurs')
-            ->add('cout')
+            ->add('titre', null, [
+                'attr' => ['class' => 'location-input']
+            ])
+            ->add('description', null, [
+                'attr' => ['class' => 'location-input']
+            ])
+            ->add('planete', null, [
+                'attr' => ['class' => 'location-input']
+            ])
+            ->add('zone', null, [
+                'attr' => ['class' => 'location-input']
+            ])
+            ->add('maxVoyageurs', null, [
+                'attr' => ['class' => 'location-input']
+            ])
+            ->add('cout', null, [
+                'attr' => ['class' => 'location-input']
+            ])
         ;
     }
 
@@ -30,3 +40,4 @@ class LocationType extends AbstractType
         ]);
     }
 }
+
