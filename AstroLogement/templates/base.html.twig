@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}AstroLogement{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
         <link rel="icon" href="{{ asset('images/logo.png') }}">
         {% block stylesheets %}{% endblock %}
         {% block javascripts %}{% endblock %}
@@ -17,8 +18,12 @@
             </a>
 
             <div class="navbar-center">
-                <a href="{{ path('app_location_index') }}" class="astro-link active">Logements</a>
-                <a href="{{ path('app_message_home') }}" class="astro-link">Mes expéditions</a>
+                <div class="navbar-center">
+                    <a href="{{ path('app_location_index') }}" class="astro-link {% if app.request.attributes.get('_route') starts with 'app_location' %}active{% endif %}">Logements</a>
+
+                    <a href="{{ path('app_message_home') }}" class="astro-link {% if app.request.attributes.get('_route') starts with 'app_message' %}active{% endif %}">Mes expéditions</a>
+                </div>
+
             </div>
 
             <div class="navbar-right">
