@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}AstroLogement{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
         <link rel="icon" href="{{ asset('images/logo.png') }}">
         {% block stylesheets %}{% endblock %}
         {% block javascripts %}{% endblock %}
@@ -15,24 +16,50 @@
             </a>
 
             <div class="navbar-center">
-                <a href="{{ path('app_location_index') }}" class="astro-link active">Logements</a>
-                <a href="{{ path('app_reservation_index') }}" class="astro-link">Mes expéditions</a>
+
+                <div class="navbar-center">
+                    <a href="{{ path('app_location_index') }}" class="astro-link {% if app.request.attributes.get('_route') starts with 'app_location' %}active{% endif %}">Logements</a>
+
+                    <a href="{{ path('app_message_home') }}" class="astro-link {% if app.request.attributes.get('_route') starts with 'app_message' %}active{% endif %}">Mes expéditions</a>
+                </div>
+
             </div>
 
             <div class="navbar-right">
-                <div class="astro-box">
+                <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                
+                <label for="menu-toggle" class="astro-box expanded-toggle">
                     <div class="hamburger-btn">
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
+                    <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar">
+                </label>
 
-                    <a href="{{ app.user ? path('app_profil') : path('app_login') }}" class="avatar-link">
+                <div class="side-menu">
+                    <div class="side-menu-header">
+                        <a href="{{ app.user ? path('app_profile') : path('app_login') }}" class="account-link">
+                            Your account
+                        </a>
+                        <a href="{{ app.user ? path('app_profile') : path('app_login') }}">
+                            <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar">
+                        </a>
+                    </div>
 
-                        <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar">
-                    </a>
+                    <ul class="side-menu-links">
+                        <li><i class="icon">🚀</i><a href="{{ path('app_location_index') }}">Mes expéditions</a></li>
+                        <li><i class="icon">💬</i><a href="{{ path('app_message_home') }}">Messagerie</a></li>
+                        <li><i class="icon">➕</i><a href="#">Ajouter son logement</a></li>
+                        <li><i class="icon">⚙️</i><a href="#">Réglages</a></li>
+                        <li><i class="icon">🔓</i><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                    </ul>
+
+                    <label for="menu-toggle" class="close-btn">✕</label>
+
                 </div>
             </div>
+
 
 
             </div>
