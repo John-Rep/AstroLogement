@@ -97,3 +97,22 @@ button.login-btn:hover {
     margin-bottom: 15px;
     border-radius: 4px;
 }
+
+/* Lien pour créer un compte */
+.login-register {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-register a {
+    color: #b0b0b0; /* Gris */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-register a:visited,
+.login-register a:hover,
+.login-register a:active {
+    color: #b0b0b0; /* Toujours gris */
+    text-decoration: underline;
+}
