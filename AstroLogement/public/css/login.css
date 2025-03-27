@@ -5,8 +5,7 @@ main {
     margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh; /* Remplir la hauteur de la page, mais centrer le formulaire uniquement */
+    align-items: center;/* Remplir la hauteur de la page, mais centrer le formulaire uniquement */
 }
 
 /* Conteneur du formulaire */
