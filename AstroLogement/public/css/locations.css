@@ -1,13 +1,11 @@
 .location-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 80px; /* 🔼 AVANT: 25px */
-    justify-content: center;
-    max-width: 1200px; /* 🔼 un peu plus large */
-    margin: 60px auto; /* 🔼 plus d’espace autour */
+    justify-content: center; /* ✅ centre les cartes horizontalement */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 60px auto;
 }
-
-
 
 .location-card {
     width: 240px;
@@ -21,6 +19,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.location-card .card-price {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-decoration: none;
+    pointer-events: none; /* <== Désactive le clic uniquement sur ce bloc */
 }
 
 
@@ -41,18 +47,6 @@
     height: 100%;
     object-fit: cover;
     display: block;
-}
-
-
-.heart {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.1rem;
-    color: white;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 50%;
-    padding: 6px;
 }
 
 .card-header {

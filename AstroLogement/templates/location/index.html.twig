@@ -23,38 +23,42 @@
         </form>
     </div>
 
- {% for location in locations %}
-        <div class="location-card">
-            <div class="card-image">
-                {% if location.photos|length > 0 %}
-                    <img src="{{ asset(location.photos[0]) }}" alt="Photo de {{ location.titre }}">
-                {% else %}
-                    <img src="{{ asset('images/default.jpg') }}" alt="Image par défaut">
-                {% endif %}
-                <span class="heart">♡</span>
-            </div>
-            <div class="card-body">
-                <div class="card-header">
-                    <strong>{{ location.titre }}, {{ location.planete }}</strong>
-                    <span class="rating">★ {{ location.moyenneAvis ?? '4.2' }}</span>
-                </div>
-                <div class="card-host">
-                    Hôte :
-                    {{ location.user.prenom ?? 'Inconnu' }}
-                    {{ location.user.nom ?? '' }}
-                    ({{ location.user.email }})
+<div class="location-grid">
+    {% for location in locations %}
+        <a href="{{ path('app_location_show', {'id': location.id}) }}" class="location-card-link">
+            <div class="location-card">
+                <div class="card-image">
+                    {% if location.photos|length > 0 %}
+                        <img src="{{ asset(location.photos[0]) }}" alt="Photo de {{ location.titre }}">
+                    {% else %}
+                        <img src="{{ asset('images/default.jpg') }}" alt="Image par défaut">
+                    {% endif %}
                 </div>
 
-                <div class="card-price">{{ location.cout }} $ par nuit</div>
-                <div class="card-actions">
-                    <a href="{{ path('app_location_show', {'id': location.id}) }}">Voir</a>
-                    <a href="{{ path('app_location_edit', {'id': location.id}) }}">Modifier</a>
+                <div class="card-body">
+                    <div class="card-header">
+                        <strong>{{ location.titre }}, {{ location.planete }}</strong>
+                        <span class="rating">★ {{ location.moyenneAvis ?? '4.2' }}</span>
+                    </div>
+
+                    <div class="card-host">
+                        Hôte : {{ location.user.prenom ?? 'Inconnu' }} {{ location.user.nom ?? '' }}
+                    </div>
+
+                    <div class="card-price">
+                        {{ location.cout }} $ par nuit
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="{{ path('app_location_edit', {'id': location.id}) }}" onclick="event.stopPropagation(); event.preventDefault(); window.location.href=this.href;">Modifier</a>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     {% else %}
         <p>Aucune location disponible pour le moment.</p>
     {% endfor %}
+
 </div>
 
 <a href="{{ path('app_location_new') }}" class="btn-create">Créer une nouvelle location</a>
