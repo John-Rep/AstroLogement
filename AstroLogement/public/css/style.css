@@ -1,0 +1,70 @@
+/* === NAVBAR STYLING === */
+
+body {
+    margin: 0;
+    background-color: #f4f6fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background: linear-gradient(90deg, #1b1f3a, #232946);
+    padding: 10px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    color: #f5f5f5;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.navbar-logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+
+.navbar-links,
+.navbar-auth {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-links li a,
+.navbar-auth li a {
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-links li a:hover,
+.navbar-auth li a:hover {
+    color: #f9d923;
+    transform: translateY(-2px);
+}
+
+/* === CONTENT === */
+
+.content {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
