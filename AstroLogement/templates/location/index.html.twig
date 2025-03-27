@@ -1,4 +1,9 @@
+
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/locations.css') }}">
+{% endblock %}
 
 {% block title %}Explorations disponibles{% endblock %}
 
@@ -23,9 +28,11 @@
                 </div>
                 <div class="card-host">
                     Hôte :
-                    {{ location.user.firstname ?? 'Prénom inconnu' }}
-                    {{ location.user.lastname ?? '' }}
+                    {{ location.user.prenom ?? 'Inconnu' }}
+                    {{ location.user.nom ?? '' }}
+                    ({{ location.user.email }})
                 </div>
+
                 <div class="card-price">{{ location.cout }} $ par nuit</div>
                 <div class="card-actions">
                     <a href="{{ path('app_location_show', {'id': location.id}) }}">Voir</a>

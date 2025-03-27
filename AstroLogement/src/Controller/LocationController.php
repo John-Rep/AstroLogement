@@ -19,15 +19,16 @@ final class LocationController extends AbstractController{
     public function index(LocationRepository $locationRepository): Response
     {
         return $this->render('location/index.html.twig', [
-            'locations' => $locationRepository->findAllWithUser(),
+            'locations' => $locationRepository->findAllWithUser(), // 👈 ici
         ]);
     }
+    
 
     #[Route('/new', name: 'app_location_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $location = new Location();
-        $form = $this->createForm(LocationType::class, $location);
+        $form = $this->createForm(LocationType::class, $location);  
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
