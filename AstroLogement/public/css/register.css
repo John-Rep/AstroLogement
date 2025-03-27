@@ -1,83 +1,119 @@
-.registration-container {
-    min-height: 100vh;
+/* Style global pour la page d'inscription */
+main {
+    font-family: Arial, sans-serif;
+    background-color: #2C2C2C; /* Fond clair */
+    margin: 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 30px;
+    align-items: center;
 }
 
-.registration-box {
-    max-width: 500px;
+/* Conteneur du formulaire */
+.registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    background-color: rgba(56, 56, 56, 0.5);
-    padding: 25px;
-    padding-bottom: 15px;
-    padding-top: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid #3BF4DA;
-    color: #ffffff;
-    flex-direction: column;
-    justify-content: space-between; 
 }
 
-.registration-text-primary {
+/* Conteneur de la box du formulaire */
+form.registration-form {
+    background-color: rgba(56, 56, 56, 0.5);  /* Couleur de fond mise à jour */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+/* Titre du formulaire */
+h1.registration-title {
+    text-align: center;
     font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-}
-
-.registration-form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid rgba(50, 50, 50);
-    border-radius: 5px;
-    background-color: rgba(80, 80, 80, 0.5);
+    margin-bottom: 20px;
     color: white;
 }
 
+/* Labels pour les champs de formulaire */
+label.registration-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+}
+
+/* Style des champs de formulaire */
+input.registration-input {
+    width: 75%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: rgba(65, 65, 65, 0.8);
+    border: 1px solid rgba(56, 56, 56);
+    color: white;
+}
+
+/* Focus sur les champs */
+input.registration-input:focus {
+    border-color: #3BF4DA;
+    outline: none;
+}
+
+/* Disposition des champs deux par deux */
+.registration-form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+/* Espacement entre les champs */
+.registration-form-row div {
+    width: 48%;
+}
+
+/* Bouton de soumission */
+button.registration-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(59, 244, 218, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button.registration-btn:hover {
+    background-color: rgba(59, 244, 218, 0.9);
+}
+
+/* Case à cocher */
 .registration-form-check {
     display: flex;
     align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
 .registration-form-check-input {
     margin-right: 10px;
 }
 
-.registration-btn-primary {
-    background-color: rgba(59, 244, 218, 0.7);
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin-top: auto;
-    align-items: center;
+/* Lien pour se connecter */
+.registration-login {
+    text-align: center;
+    margin-top: 15px;
 }
 
-.registration-btn-primary:hover {
-    background-color: rgba(59, 244, 218, 0.9);
-}
-
-.registration-mb-3 {
-    margin-bottom: 15px;
-}
-
-
-.registration-input-smaller {
-    max-width: 250px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 8px;
+.registration-login a {
+    color: #b0b0b0; /* Gris */
+    text-decoration: none;
     font-size: 14px;
 }
 
-
-.registration-label {
-    font-size: 14px;
-    margin-bottom: 5px;
-    display: block;
+.registration-login a:visited,
+.registration-login a:hover,
+.registration-login a:active {
+    color: #b0b0b0; /* Toujours gris */
+    text-decoration: underline;
 }

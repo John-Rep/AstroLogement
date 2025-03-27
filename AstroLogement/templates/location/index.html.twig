@@ -1,55 +1,63 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Location index{% endblock %}
+
+{% block title %}Explorations disponibles{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/locations.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
 
 {% block body %}
-    <h1>Location index</h1>
+    <h1 class="text-center">Location index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>User</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Photos</th>
-                <th>Planete</th>
-                <th>Zone</th>
-                <th>MaxVoyageurs</th>
-                <th>Cout</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for location in locations %}
-            <tr>
-                <td>{{ location.id }}</td>
-                <td>{{ location.user.email }}</td>
-                <td>{{ location.titre }}</td>
-                <td>{{ location.description }}</td>
-                <td>
-                {% for photo in location.photos %}
-                    <img src="{{ asset(photo) }}" alt="Image"/>
-                {% endfor %}
-                </td>
-                <td>{{ location.planete }}</td>
-                <td>{{ location.zone }}</td>
-                <td>{{ location.maxVoyageurs }}</td>
-                <td>{{ location.cout }}</td>
-                <td>
-                    <a href="{{ path('app_location_show', {'id': location.id}) }}">show</a>
-                    <a href="{{ path('app_location_edit', {'id': location.id}) }}">edit</a>
-                    <a href="{{ path('app_reservation_new', {'id': location.id}) }}">Create new Reservation</a>
-                    <a href="{{ path('app_avis_new', {'id': location.id}) }}">Create new Avis</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="search-container">
+        <form method="get" action="{{ path('app_location_index') }}">
+            <input type="text" id="planete" name="planete" value="{{ planete }}" placeholder="Rechercher une destination...">
+            <button type="submit">
+                <i class="fas fa-search"></i> <!-- Icône loupe -->
+            </button>
+        </form>
+    </div>
 
-    <a href="{{ path('app_location_new') }}">Create new</a>
+<div class="location-grid">
+    {% for location in locations %}
+        <a href="{{ path('app_location_show', {'id': location.id}) }}" class="location-card-link">
+            <div class="location-card">
+                <div class="card-image">
+                    {% if location.photos|length > 0 %}
+                        <img src="{{ asset(location.photos[0]) }}" alt="Photo de {{ location.titre }}">
+                    {% else %}
+                        <img src="{{ asset('images/default.jpg') }}" alt="Image par défaut">
+                    {% endif %}
+                </div>
+
+                <div class="card-body">
+                    <div class="card-header">
+                        <strong>{{ location.titre }}, {{ location.planete }}</strong>
+                        <span class="rating">★ {{ location.moyenneAvis ?? '4.2' }}</span>
+                    </div>
+
+                    <div class="card-host">
+                        Hôte : {{ location.user.prenom ?? 'Inconnu' }} {{ location.user.nom ?? '' }}
+                    </div>
+
+                    <div class="card-price">
+                        {{ location.cout }} $ par nuit
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="{{ path('app_location_edit', {'id': location.id}) }}" onclick="event.stopPropagation(); event.preventDefault(); window.location.href=this.href;">Modifier</a>
+                    </div>
+                </div>
+            </div>
+        </a>
+    {% else %}
+        <p>Aucune location disponible pour le moment.</p>
+    {% endfor %}
+
+</div>
+
+<a href="{{ path('app_location_new') }}" class="btn-create">Créer une nouvelle location</a>
 {% endblock %}
