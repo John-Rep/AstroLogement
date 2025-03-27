@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/messages')]
+#[Route('/message')]
 class MessageController extends AbstractController
 {
 
@@ -20,11 +20,7 @@ class MessageController extends AbstractController
 public function index(UserRepository $userRepository)
 {
     $currentUser = $this->getUser();
-    $users = $userRepository->createQueryBuilder('u')
-        ->where('u != :me')
-        ->setParameter('me', $currentUser)
-        ->getQuery()
-        ->getResult();
+    $users = $userRepository->getUserMessages($currentUser);
 
     return $this->render('message/index.html.twig', [
         'users' => $users,

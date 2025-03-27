@@ -24,5 +24,15 @@ class MessageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getUserMessages(User $user): array
+    {
+        return $this->createQueryBuilder('u')
+        ->where('u != :me')
+        ->setParameter('me', $user)
+        ->getQuery()
+        ->getResult();
+    }
+    
     
 }
