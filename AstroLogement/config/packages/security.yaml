@@ -38,8 +38,9 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/location/new, roles: ROLE_USER }
         - { path: ^/avis/new, roles: ROLE_USER }
-        - { path: ^/reservation/new, roles: ROLE_USER }
+        - { path: ^/reservation, roles: ROLE_USER }
         - { path: ^/message, roles: ROLE_USER }
+        - { path: ^/profil, roles: ROLE_USER }
 
 when@test:
     security:
