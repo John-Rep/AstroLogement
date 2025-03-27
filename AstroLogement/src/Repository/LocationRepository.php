@@ -16,6 +16,16 @@ class LocationRepository extends ServiceEntityRepository
         parent::__construct($registry, Location::class);
     }
 
+    public function findAllWithUser(): array
+    {
+        return $this->createQueryBuilder('l')
+            ->leftJoin('l.user', 'u')
+            ->addSelect('u')
+            ->getQuery()
+            ->getResult();
+    }
+
+
 //    /**
 //     * @return Location[] Returns an array of Location objects
 //     */

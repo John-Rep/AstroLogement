@@ -1,0 +1,89 @@
+.location-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* ✅ centre les cartes horizontalement */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 60px auto;
+}
+
+.location-card {
+    width: 240px;
+    height: 350px; /* ✅ Hauteur fixe pour égaliser les cartes */
+    background-color: #2C2C2C;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(61, 225, 252, 0.1);
+    transition: transform 0.2s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.location-card .card-price {
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-decoration: none;
+    pointer-events: none; /* <== Désactive le clic uniquement sur ce bloc */
+}
+
+
+
+.location-card:hover {
+    transform: scale(1.02);
+}
+
+.card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+}
+
+.rating {
+    font-size: 0.95rem;
+    color: white;
+}
+
+
+
+.card-body {
+    padding: 12px 14px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card-body strong {
+    font-size: 1.05rem;
+    color: white;
+}
+
+.card-host {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.card-price {
+    font-size: 0.95rem;
+    font-weight: bold;
+}
