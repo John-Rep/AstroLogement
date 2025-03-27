@@ -1,0 +1,57 @@
+/* Centrer le formulaire de recherche */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-container form {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Style du champ de recherche */
+.search-container input {
+    width: 350px;
+    padding: 12px 30px; /* Ajouter un padding à gauche pour l'icône */
+    margin-right: 0;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: rgba(65, 65, 65, 0.8);
+    color: white;
+    font-size: 14px;
+}
+
+/* Style du bouton rond avec la loupe */
+.search-container button {
+    width: 35px;
+    height: 35px;
+    background-color: rgba(59, 244, 218, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 5px; /* Placer le bouton à droite dans le champ */
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background-color: rgba(59, 244, 218, 0.9);
+}
+
+/* Icône de loupe */
+.search-container button i {
+    font-size: 18px;
+}
+
+/* Style de focus pour le champ de recherche */
+.search-container input:focus {
+    outline: none;
+    border-color: #3bf4da;
+}
+
+

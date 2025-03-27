@@ -1,17 +1,29 @@
 
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/locations.css') }}">
-{% endblock %}
+
 
 {% block title %}Explorations disponibles{% endblock %}
 
-{% block body %}
-<h1 class="page-title">Explorations disponibles</h1>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/locations.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
 
-<div class="location-grid">
-    {% for location in locations %}
+{% block body %}
+    <h1 class="text-center">Location index</h1>
+
+    <div class="search-container">
+        <form method="get" action="{{ path('app_location_index') }}">
+            <input type="text" id="planete" name="planete" value="{{ planete }}" placeholder="Rechercher une destination...">
+            <button type="submit">
+                <i class="fas fa-search"></i> <!-- Icône loupe -->
+            </button>
+        </form>
+    </div>
+
+ {% for location in locations %}
         <div class="location-card">
             <div class="card-image">
                 {% if location.photos|length > 0 %}

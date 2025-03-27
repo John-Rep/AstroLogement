@@ -16,13 +16,30 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/location')]
 final class LocationController extends AbstractController{
     #[Route(name: 'app_location_index', methods: ['GET'])]
-    public function index(LocationRepository $locationRepository): Response
+    public function index(Request $request, LocationRepository $locationRepository): Response
     {
+        // Récupérer la valeur de la recherche pour la planète
+        $planete = $request->query->get('planete', ''); 
+    
+        // Si une planète est spécifiée dans la recherche
+        if ($planete) {
+            // Recherche des locations où la planète commence par la valeur de recherche
+            $locations = $locationRepository->createQueryBuilder('l')
+                ->where('l.planete LIKE :planete')
+                ->setParameter('planete', $planete . '%') // Le % permet de dire "commence par"
+                ->getQuery()
+                ->getResult();
+        } else {
+            // Si pas de recherche, on récupère toutes les locations
+            $locations = $locationRepository->findAll();
+        }
+    
+        // Passer la valeur de la planète et les locations à la vue
         return $this->render('location/index.html.twig', [
-            'locations' => $locationRepository->findAllWithUser(), // 👈 ici
+            'locations' => $locationRepository->findAllWithUser(),$locations, // 👈 ici
+            'planete' => $planete, // Passer la valeur de la recherche à la vue
         ]);
     }
-    
 
     #[Route('/new', name: 'app_location_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
