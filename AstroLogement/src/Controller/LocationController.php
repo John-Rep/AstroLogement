@@ -101,9 +101,15 @@ final class LocationController extends AbstractController{
     #[Route('/{id}', name: 'app_location_show', methods: ['GET'])]
     public function show(Location $location): Response
     {
-        return $this->render('location/show.html.twig', [
-            'location' => $location,
-        ]);
+        if ($location->getUser() == $this->getUser()) {
+            return $this->render('location/show_proprietaire.html.twig', [
+                'location' => $location,
+            ]);
+        } else {
+            return $this->render('location/show.html.twig', [
+                'location' => $location,
+            ]);
+        }
     }
 
     #[Route('/{id}/edit', name: 'app_location_edit', methods: ['GET', 'POST'])]
