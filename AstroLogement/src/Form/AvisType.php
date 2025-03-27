@@ -21,14 +21,6 @@ class AvisType extends AbstractType
             ->add('title')
             ->add('contenu')
             ->add('note')
-            ->add('location', EntityType::class, [
-                'class' => Location::class,
-                'choice_label' => 'id',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 

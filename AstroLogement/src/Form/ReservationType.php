@@ -22,14 +22,6 @@ class ReservationType extends AbstractType
             ->add('fin', null, [
                 'widget' => 'single_text',
             ])
-            ->add('location', EntityType::class, [
-                'class' => Location::class,
-                'choice_label' => 'id',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 
