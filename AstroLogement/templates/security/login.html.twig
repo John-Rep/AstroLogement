@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     <div class="login-container">
@@ -11,11 +15,11 @@
 
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
                 </div>
             {% endif %}
 
-            <h1 class="h3 login-title">Please sign in</h1>
+            <h1 class="h3 login-title">Veuillez vous connecter</h1>
 
             <div class="login-form-row">
                 <div class="input-group">
@@ -23,7 +27,7 @@
                     <input type="email" value="{{ last_username }}" name="_username" id="username" class="login-input" autocomplete="email" required autofocus>
                 </div>
                 <div class="input-group">
-                    <label for="password" class="login-label">Password</label>
+                    <label for="password" class="login-label">Mot de passe</label>
                     <input type="password" name="_password" id="password" class="login-input" autocomplete="current-password" required>
                 </div>
             </div>
@@ -31,7 +35,7 @@
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
             <button class="btn btn-lg login-btn" type="submit">
-                Sign in
+                Se connecter
             </button>
         </form>
     </div>
