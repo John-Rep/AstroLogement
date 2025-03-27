@@ -1,6 +1,8 @@
 
-/* === NAVBAR STYLING === */
+
 @import url("register.css"); 
+
+@import url("login.css"); 
 
 body {
     margin: 0;
