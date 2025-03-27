@@ -29,12 +29,11 @@ public function index(UserRepository $userRepository)
 
     #[Route('/{id}', name: 'app_messages')]
     public function messages(
-        int $id,
+        User $receiver,
         Request $request,
         EntityManagerInterface $em,
         MessageRepository $messageRepository
     ) {
-        $receiver = $em->getRepository(User::class)->find($id);
         $sender = $this->getUser();
 
         if (!$receiver || $receiver === $sender) {
@@ -47,6 +46,9 @@ public function index(UserRepository $userRepository)
         $message->setUserOrig($sender);
         $message->setUserDest($receiver);
         $message->setDate(new \DateTimeImmutable());
+        if (!$messages) {
+            $message->setContenu("Bonjour ! J'aimerais bien réserver cette location pendant ces dates. Veuillez accepter cette réservation.");
+        }
 
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);

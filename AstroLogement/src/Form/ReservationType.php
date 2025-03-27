@@ -15,7 +15,6 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('confirm')
             ->add('debut', null, [
                 'widget' => 'single_text',
             ])

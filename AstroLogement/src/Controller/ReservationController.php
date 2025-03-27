@@ -10,6 +10,7 @@ use App\Entity\Location;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/reservation')]
@@ -31,12 +32,20 @@ final class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $reservation->setLocation($location);
-            $reservation->setUser($this->getUser());
-            $entityManager->persist($reservation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+            if ($location->getUser() == $this->getUser()) {
+                $this->addFlash("Erreur", "Vous ne pouvez pas réserver votre location");
+            } else if ($form->get('debut')->getData() < new \DateTimeImmutable()) {
+                $this->addFlash("Erreur", "Vous ne pouvez pas réserver dans le passé");
+            } else if ($form->get('debut')->getData() >= $form->get('fin')->getData()) {
+                $this->addFlash("Erreur", "La date de fin doit être après la date de début");
+            } else {
+                $reservation->setLocation($location);
+                $reservation->setUser($this->getUser());
+                $entityManager->persist($reservation);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('app_messages', [ 'id' => $location->getUser()->getId() ], Response::HTTP_SEE_OTHER);
+            }
         }
 
         return $this->render('reservation/new.html.twig', [
@@ -71,6 +80,17 @@ final class ReservationController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/accept', name: 'app_reservation_accept', methods: ['POST'])]
+    public function accept(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('accept'.$reservation->getId(), $request->getPayload()->getString('_token'))) {
+            $reservation->setConfirm(true);
+            $entityManager->flush();
+        }
+
+        return new RedirectResponse($request->headers->get('referer') ?: $this->generateUrl('app_home'));
+    }
+
     #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
     public function delete(Request $request, Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
@@ -79,6 +99,6 @@ final class ReservationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        return new RedirectResponse($request->headers->get('referer') ?: $this->generateUrl('app_home'));
     }
 }
