@@ -34,10 +34,9 @@ final class LocationController extends AbstractController{
             $locations = $locationRepository->findAll();
         }
     
-        // Passer la valeur de la planète et les locations à la vue
         return $this->render('location/index.html.twig', [
-            'locations' => $locationRepository->findAllWithUser(),$locations, // 👈 ici
-            'planete' => $planete, // Passer la valeur de la recherche à la vue
+            'locations' => $locations, // On utilise uniquement la liste filtrée
+            'planete' => $planete,
         ]);
     }
 
