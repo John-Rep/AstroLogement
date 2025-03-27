@@ -1,6 +1,7 @@
 
 /* === NAVBAR STYLING === */
 @import url("register.css"); 
+@import url("reservation.css"); 
 
 body {
     margin: 0;
