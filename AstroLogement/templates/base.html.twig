@@ -7,9 +7,7 @@
         <link rel="icon" href="{{ asset('images/logo.png') }}">
         {% block stylesheets %}{% endblock %}
         {% block javascripts %}{% endblock %}
-    </head>
 
-    <body>
         <nav class="astro-navbar">
             <a href="{{ path('app_location_index') }}" class="navbar-left link-logo">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="astro-logo">
@@ -42,5 +40,7 @@
         <main class="content">
             {% block body %}{% endblock %}
         </main>
+    </head>
+    <body>
     </body>
 </html>
