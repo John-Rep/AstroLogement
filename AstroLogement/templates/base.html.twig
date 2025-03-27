@@ -7,9 +7,7 @@
         <link rel="icon" href="{{ asset('images/logo.png') }}">
         {% block stylesheets %}{% endblock %}
         {% block javascripts %}{% endblock %}
-    </head>
 
-    <body>
         <nav class="astro-navbar">
             <a href="{{ path('app_location_index') }}" class="navbar-left link-logo">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="astro-logo">
@@ -30,6 +28,7 @@
                     </div>
 
                     <a href="{{ app.user ? path('app_profil') : path('app_login') }}" class="avatar-link">
+
                         <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar">
                     </a>
                 </div>
@@ -42,5 +41,7 @@
         <main class="content">
             {% block body %}{% endblock %}
         </main>
+    </head>
+    <body>
     </body>
 </html>
