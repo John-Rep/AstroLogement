@@ -3,27 +3,25 @@
 {% block title %}Messagerie{% endblock %}
 
 {% block body %}
+    <h2>Conversation avec {{ receiver }}</h2>
 
-<h2>Conversation avec {{ receiver }}</h2>
+    <div id="messages-container">
+        {% include 'message/_messages.html.twig' %}
+    </div>
 
-<div id="messages-container">
-    {% include 'message/_messages.html.twig' %}
-</div>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Envoyer</button>
+    {{ form_end(form) }}
 
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Envoyer</button>
-{{ form_end(form) }}
-
-<script>
-    // Rafraîchit les messages toutes les 5 secondes
-    setInterval(() => {
-        fetch('{{ path("app_messages_refresh", {"id": receiver.id}) }}')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('messages-container').innerHTML = html;
-            });
-    }, 5000);
-</script>
-
+    <script>
+        // Rafraîchit les messages toutes les 5 secondes
+        setInterval(() => {
+            fetch('{{ path("app_messages_refresh", {"id": receiver.id}) }}')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('messages-container').innerHTML = html;
+                });
+        }, 5000);
+    </script>
 {% endblock %}

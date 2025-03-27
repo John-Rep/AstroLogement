@@ -1,0 +1,79 @@
+/* Conteneur principal des messages */
+.messages {
+    margin-top: 20px;
+    padding: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Style des messages */
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    word-wrap: break-word;
+    max-width: 80%;
+}
+
+/* Style pour les messages envoyés par l'utilisateur */
+.from-me {
+    background-color: #3498db;
+    color: white;
+    align-self: flex-end;
+    margin-left: auto;
+    text-align: right;
+}
+
+/* Style pour les messages reçus */
+.from-them {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    align-self: flex-start;
+    margin-right: auto;
+    text-align: left;
+}
+
+/* Ligne de séparation */
+hr {
+    border: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+/* Petite taille pour la date */
+small {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+/* Formulaire d'envoi de message */
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    resize: vertical;
+}
+
+button {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #27ae60;
+}

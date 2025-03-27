@@ -15,17 +15,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/message')]
 class MessageController extends AbstractController
 {
+    #[Route('/', name: 'app_message_home')]
+    public function index(UserRepository $userRepository)
+    {
+        $currentUser = $this->getUser();
+        $users = $userRepository->getOtherUsers($currentUser);
 
-#[Route('/', name: 'app_message_home')]
-public function index(UserRepository $userRepository)
-{
-    $currentUser = $this->getUser();
-    $users = $userRepository->getOtherUsers($currentUser);
-
-    return $this->render('message/index.html.twig', [
-        'users' => $users,
-    ]);
-}
+        return $this->render('message/index.html.twig', [
+            'users' => $users,
+        ]);
+    }
 
     #[Route('/{id}', name: 'app_messages')]
     public function messages(
@@ -65,6 +64,7 @@ public function index(UserRepository $userRepository)
             'receiver' => $receiver,
         ]);
     }
+
     #[Route('/refresh/{id}', name: 'app_messages_refresh')]
     public function refreshMessages(
         int $id,
@@ -84,5 +84,4 @@ public function index(UserRepository $userRepository)
             'messages' => $messages,
         ]);
     }
-
 }

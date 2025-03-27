@@ -1,9 +1,9 @@
 <div class="messages">
     {% for message in messages %}
         <div class="{% if message.userOrig == app.user %}from-me{% else %}from-them{% endif %}">
-            <strong>{{ message.userOrig }}</strong><br>
-            {{ message.contenu }}
-            <br><small>{{ message.date|date('d/m/Y H:i') }}</small>
+            <strong>{{ message.userOrig }} :</strong><br>
+            <p>{{ message.contenu }}</p>
+            <small>{{ message.date|date('H:i d/m/Y') }}</small>
         </div>
         <hr>
     {% endfor %}
