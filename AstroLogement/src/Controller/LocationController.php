@@ -36,17 +36,16 @@ final class LocationController extends AbstractController{
     
         // Passer la valeur de la planète et les locations à la vue
         return $this->render('location/index.html.twig', [
-            'locations' => $locations,
+            'locations' => $locationRepository->findAllWithUser(),$locations, // 👈 ici
             'planete' => $planete, // Passer la valeur de la recherche à la vue
         ]);
     }
-     
 
     #[Route('/new', name: 'app_location_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $location = new Location();
-        $form = $this->createForm(LocationType::class, $location);
+        $form = $this->createForm(LocationType::class, $location);  
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
