@@ -1,10 +1,29 @@
-<div class="messages">
+{% set lastDate = '' %}
+
+<div class="message-list" id="scroll-bottom">
     {% for message in messages %}
-        <div class="{% if message.userOrig == app.user %}from-me{% else %}from-them{% endif %}">
-            <strong>{{ message.userOrig }}</strong><br>
-            {{ message.contenu }}
-            <br><small>{{ message.date|date('d/m/Y H:i') }}</small>
+        {% set currentDate = message.date|date('d/m/Y') %}
+
+        {% if currentDate != lastDate %}
+            <div class="date-separator">
+                {{ currentDate == "now"|date('d/m/Y') ? "Aujourd’hui" : currentDate }}
+            </div>
+            {% set lastDate = currentDate %}
+        {% endif %}
+
+        <div class="message-container {% if message.userOrig == app.user %}from-me{% else %}from-them{% endif %}">
+            <div class="avatar">
+                <img src="{{ asset('images/avatar.png') }}" alt="avatar">
+            </div>
+
+            <div class="bubble">
+                <p>{{ message.contenu }}</p>
+                <small>{{ message.date|date('H:i') }}</small>
+
+                {% if message.userOrig == app.user %}
+                    <span class="sent-check">✔️</span>
+                {% endif %}
+            </div>
         </div>
-        <hr>
     {% endfor %}
 </div>

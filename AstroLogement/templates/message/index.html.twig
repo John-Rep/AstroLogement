@@ -8,11 +8,11 @@
     <ul>
         {% for user in users %}
             <li>
-                {{ user }}
+                <strong>{{ user.nom}}</strong> 
                 <a href="{{ path('app_messages', {'id': user.id}) }}">Discuter</a>
             </li>
         {% else %}
-            <li>Aucun autre utilisateur</li>
+            <li>Aucun autre utilisateur disponible</li>
         {% endfor %}
     </ul>
 {% endblock %}

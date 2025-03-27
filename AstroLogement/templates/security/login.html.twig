@@ -20,13 +20,13 @@
             {% endif %}
 
             <h1 class="h3 login-title">Veuillez vous connecter</h1>
-
             <div class="login-form-row">
                 <div class="input-group">
                     <label for="username" class="login-label">Email</label>
                     <input type="email" value="{{ last_username }}" name="_username" id="username" class="login-input" autocomplete="email" required autofocus>
                 </div>
                 <div class="input-group">
+
                     <label for="password" class="login-label">Mot de passe</label>
                     <input type="password" name="_password" id="password" class="login-input" autocomplete="current-password" required>
                 </div>
@@ -40,6 +40,7 @@
             <div class="login-register">
                 <a href="{{ path('app_register') }}">Pas encore de compte ? Inscrivez-vous ici</a>
             </div>
+
         </form>
     </div>
 {% endblock %}

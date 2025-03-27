@@ -4,7 +4,7 @@ main {
     background-color: #2C2C2C; /* Fond clair */
     margin: 0;
     display: flex;
-    justify-content: center;
+    justify-content: center;  
     align-items: center;
 }
 

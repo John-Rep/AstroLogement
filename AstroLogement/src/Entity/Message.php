@@ -28,7 +28,6 @@ class Message
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userDest = null;
 
-
     public function getId(): ?int
     {
         return $this->id;
