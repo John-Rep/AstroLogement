@@ -93,21 +93,121 @@
 }
 
 /* Hamburger */
+.menu-toggle {
+    display: none;
+}
+
+/* bouton rectangle (hamburger + avatar) */
+.expanded-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 30px;
+    background: #1e1e1e;
+    border: 2px solid #3de1fc;
+    box-shadow: 0 0 10px rgba(61, 225, 252, 0.5);
+    cursor: pointer;
+}
+
+/* hamburger stylé */
 .hamburger-btn {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 24px;
-    height: 18px;
-    cursor: pointer;
+    width: 20px;
+    height: 14px;
 }
 
 .hamburger-btn span {
     display: block;
-    height: 3px;
+    height: 2px;
     background-color: white;
     border-radius: 1px;
 }
+
+/* menu déroulant */
+.side-menu {
+    position: fixed;
+    top: 20px;
+    right: -320px;
+    width: 260px;
+    height: auto;
+    background-color: #1e1e1e;
+    border: 2px solid #3de1fc;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(61, 225, 252, 0.6);
+    padding: 20px;
+    transition: right 0.3s ease;
+    z-index: 200;
+}
+
+/* ouverture du menu */
+.menu-toggle:checked ~ .side-menu {
+    right: 20px;
+}
+
+/* header du menu */
+.side-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* icônes + liens */
+.side-menu-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu-links li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.side-menu-links i.icon {
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.side-menu-links a {
+    color: white;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.side-menu-links a::after {
+    content: '';
+    display: block;
+    margin-top: 4px;
+    height: 2px;
+    width: 0;
+    background-color: #3de1fc;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.side-menu-links a:hover::after {
+    width: 100%;
+}
+
+.close-btn {
+    display: block;
+    margin: 20px auto 0;
+    text-align: center;
+    color: white;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
 
 /* Avatar */
 .avatar-link {
