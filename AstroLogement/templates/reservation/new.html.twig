@@ -2,16 +2,36 @@
 
 {% block title %}New Reservation{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/locations.css') }}">
+{% endblock %}
+
 {% block body %}
-    <h1>Choisir les dates de votre réservation</h1>
+<!-- Lien "Back to list" en haut à gauche -->
+<a class="back-link" href="{{ path('app_reservation_index') }}">Back to list</a>
 
-    {% for messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-danger">{{ message }}</div>
+<main class="reservation-container">
+    <form class="reservation-form">
+        <h1 class="reservation-title">Choisir les dates de votre réservation</h1>
+
+        <!-- Affichage des messages d'erreur -->
+        {% for messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert reservation-alert">{{ message }}</div>
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
 
-    {{ include('reservation/_form.html.twig') }}
+        {{ form_start(form) }}
+        
+        <label class="reservation-label" for="debut">Date de début</label>
+        {{ form_widget(form.debut, {'attr': {'class': 'reservation-input'}}) }}
 
-    <a href="{{ path('app_reservation_index') }}">back to list</a>
+        <label class="reservation-label" for="fin">Date de fin</label>
+        {{ form_widget(form.fin, {'attr': {'class': 'reservation-input'}}) }}
+
+        <button type="submit" class="reservation-btn">Réserver</button>
+
+        {{ form_end(form) }}
+    </form>
+</main>
 {% endblock %}

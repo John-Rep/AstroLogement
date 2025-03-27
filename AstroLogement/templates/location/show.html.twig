@@ -8,15 +8,17 @@
 {% block title %}Location{% endblock %}
 
 {% block body %}
+
+<a class="back-link" href="{{ path('app_location_index') }}">Back to list</a>
+
 <div class="location-container">
     <h1 class="location-title">Location</h1>
 
     {{ include('location/_location.html.twig') }}
 
-    <a class="location-title" href="{{ path('app_reservation_new', {'id': location.id}) }}">Réserver cette location</a>
-
-    <a href="{{ path('app_location_index') }}">back to list</a>
-
+    <!-- Bouton de réservation -->
+    <a class="location-btn" href="{{ path('app_reservation_new', {'id': location.id}) }}">Réserver cette location</a>
 </div>
-
 {% endblock %}
+
+

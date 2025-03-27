@@ -17,12 +17,15 @@ class ReservationType extends AbstractType
         $builder
             ->add('debut', null, [
                 'widget' => 'single_text',
+                'attr' => ['class' => 'reservation-input']
             ])
             ->add('fin', null, [
                 'widget' => 'single_text',
+                'attr' => ['class' => 'reservation-input']
             ])
         ;
     }
+    
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -30,4 +33,5 @@ class ReservationType extends AbstractType
             'data_class' => Reservation::class,
         ]);
     }
+    
 }
