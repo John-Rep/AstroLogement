@@ -23,6 +23,6 @@ class MessageRepository extends ServiceEntityRepository
             ->orderBy('m.date', 'ASC')
             ->getQuery()
             ->getResult();
-    }
+    }    
     
 }

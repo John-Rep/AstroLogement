@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/messages')]
+#[Route('/message')]
 class MessageController extends AbstractController
 {
 
@@ -20,11 +20,7 @@ class MessageController extends AbstractController
 public function index(UserRepository $userRepository)
 {
     $currentUser = $this->getUser();
-    $users = $userRepository->createQueryBuilder('u')
-        ->where('u != :me')
-        ->setParameter('me', $currentUser)
-        ->getQuery()
-        ->getResult();
+    $users = $userRepository->getOtherUsers($currentUser);
 
     return $this->render('message/index.html.twig', [
         'users' => $users,
@@ -33,12 +29,11 @@ public function index(UserRepository $userRepository)
 
     #[Route('/{id}', name: 'app_messages')]
     public function messages(
-        int $id,
+        User $receiver,
         Request $request,
         EntityManagerInterface $em,
         MessageRepository $messageRepository
     ) {
-        $receiver = $em->getRepository(User::class)->find($id);
         $sender = $this->getUser();
 
         if (!$receiver || $receiver === $sender) {
@@ -51,6 +46,9 @@ public function index(UserRepository $userRepository)
         $message->setUserOrig($sender);
         $message->setUserDest($receiver);
         $message->setDate(new \DateTimeImmutable());
+        if (!$messages) {
+            $message->setContenu("Bonjour ! J'aimerais bien réserver cette location pendant ces dates. Veuillez accepter cette réservation.");
+        }
 
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);

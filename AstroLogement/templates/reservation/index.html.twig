@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation index{% endblock %}
+
+{% block body %}
+<div class="reservation-container">
+    <h1 class="reservation-title">Vos expéditions qui arrivent</h1>
+
+    {% for reservation in reservations %}
+        <div class="reservation-box">
+            <div class="reservation-text">
+                <h2>{{ reservation.location.titre }}</h2>
+                <h3>Réservation chez {{ reservation.location.user.prenom }} {{ reservation.location.user.nom }}</h3>
+                <p>{{ reservation.confirm ? 'Déjà confirmée' : 'Pas encore confirmée' }}</p>
+                <p>De {{ reservation.debut ? reservation.debut|date('Y-m-d') : '' }} à {{ reservation.fin ? reservation.fin|date('Y-m-d') : '' }}</p>
+                <p>
+                    <a href="{{ path('app_location_show', {'id': reservation.location.id}) }}">Voir Location</a>
+                </p>
+            </div>
+            <div class="reservation-image">
+                {% for photo in reservation.location.photos %}
+                    <img src="{{ asset(photo) }}" alt="Image"/>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <tr>
+            <td colspan="5">no records found</td>
+        </tr>
+    {% endfor %}
+</div>
+{% endblock %}

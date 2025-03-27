@@ -20,10 +20,11 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                default_target_path: app_home
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: app_location_index
+                target: app_home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -36,6 +37,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/location/new, roles: ROLE_USER }
+        - { path: ^/avis/new, roles: ROLE_USER }
+        - { path: ^/reservation, roles: ROLE_USER }
+        - { path: ^/message, roles: ROLE_USER }
+        - { path: ^/profil, roles: ROLE_USER }
 
 when@test:
     security:

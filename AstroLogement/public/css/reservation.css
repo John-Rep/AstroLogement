@@ -1,0 +1,22 @@
+.reservation-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+}
+
+.reservation-title {
+    text-align: center;
+}
+
+.reservation-box {
+    padding: 20px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.reservation-image img {
+    max-width: 15vw;
+    max-height: 15vw;
+}
