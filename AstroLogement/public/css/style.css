@@ -1,8 +1,10 @@
 /* === NAVBAR STYLING === */
+@import url("register.css"); 
+
 
 body {
     margin: 0;
-    background-color: #f4f6fa;
+    background-color: #2C2C2C;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
