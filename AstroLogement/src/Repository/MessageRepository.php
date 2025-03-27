@@ -24,5 +24,19 @@ class MessageRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }    
+
+    // MessageRepository.php
+    public function findLastMessageBetween(User $user1, User $user2): ?Message
+    {
+        return $this->createQueryBuilder('m')
+            ->where('(m.userOrig = :user1 AND m.userDest = :user2) OR (m.userOrig = :user2 AND m.userDest = :user1)')
+            ->setParameter('user1', $user1)
+            ->setParameter('user2', $user2)
+            ->orderBy('m.date', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     
 }

@@ -16,13 +16,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MessageController extends AbstractController
 {
     #[Route('/', name: 'app_message_home')]
-    public function index(UserRepository $userRepository)
+    public function index(UserRepository $userRepository, MessageRepository $messageRepository)
     {
         $currentUser = $this->getUser();
         $users = $userRepository->getOtherUsers($currentUser);
 
+        $lastMessages = [];
+
+        foreach ($users as $user) {
+            $lastMessages[$user->getId()] = $messageRepository->findLastMessageBetween($currentUser, $user);
+        }
+
         return $this->render('message/index.html.twig', [
             'users' => $users,
+            'lastMessages' => $lastMessages,
         ]);
     }
 
