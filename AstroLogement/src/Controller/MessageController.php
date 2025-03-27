@@ -20,7 +20,7 @@ class MessageController extends AbstractController
 public function index(UserRepository $userRepository)
 {
     $currentUser = $this->getUser();
-    $users = $userRepository->getUserMessages($currentUser);
+    $users = $userRepository->getOtherUsers($currentUser);
 
     return $this->render('message/index.html.twig', [
         'users' => $users,

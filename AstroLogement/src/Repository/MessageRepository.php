@@ -23,16 +23,6 @@ class MessageRepository extends ServiceEntityRepository
             ->orderBy('m.date', 'ASC')
             ->getQuery()
             ->getResult();
-    }
-
-    public function getUserMessages(User $user): array
-    {
-        return $this->createQueryBuilder('u')
-        ->where('u != :me')
-        ->setParameter('me', $user)
-        ->getQuery()
-        ->getResult();
-    }
-    
+    }    
     
 }
