@@ -51,6 +51,7 @@ input[type="password"].login-input {
     border-radius: 4px;
     background-color: rgba(65, 65, 65, 0.8);
     border: 1px solid rgba(56, 56, 56);
+    color: white;
 }
 
 input[type="email"].login-input:focus,
@@ -95,4 +96,23 @@ button.login-btn:hover {
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 4px;
+}
+
+/* Lien pour créer un compte */
+.login-register {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-register a {
+    color: #b0b0b0; /* Gris */
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-register a:visited,
+.login-register a:hover,
+.login-register a:active {
+    color: #b0b0b0; /* Toujours gris */
+    text-decoration: underline;
 }
