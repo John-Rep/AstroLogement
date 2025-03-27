@@ -38,6 +38,13 @@ final class ReservationController extends AbstractController
                     'form' => $form,
                 ]);
             }
+            if ($form->get('debut')->getData() < new \DateTimeImmutable()) {
+                $this->addFlash("Erreur", "Vous ne pouvez pas réserver dans le passé");
+                return $this->render('reservation/new.html.twig', [
+                    'reservation' => $reservation,
+                    'form' => $form,
+                ]);
+            }
             if ($form->get('debut')->getData() >= $form->get('fin')->getData()) {
                 $this->addFlash("Erreur", "La date de fin doit être après la date de début");
                 return $this->render('reservation/new.html.twig', [
@@ -50,7 +57,7 @@ final class ReservationController extends AbstractController
             $entityManager->persist($reservation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_messages', [ 'id' => $location->getUser()->getId() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('reservation/new.html.twig', [
