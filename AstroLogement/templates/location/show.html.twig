@@ -13,10 +13,12 @@
 
     {{ include('location/_location.html.twig') }}
 
-    <a class="location-title" href="{{ path('app_reservation_new', {'id': location.id}) }}">Réserver cette location</a>
+    <!-- Bouton de réservation -->
+    <a class="location-btn" href="{{ path('app_reservation_new', {'id': location.id}) }}">Réserver cette location</a>
 
-    <a href="{{ path('app_location_index') }}">back to list</a>
-
+    <!-- Lien retour -->
+    <a class="back-link" href="{{ path('app_location_index') }}">Back to list</a>
 </div>
 
 {% endblock %}
+

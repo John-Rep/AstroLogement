@@ -124,3 +124,43 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+
+/* Bouton de réservation */
+.location-btn {
+    display: block; /* Pour occuper toute la largeur si nécessaire */
+    width: 100%;
+    max-width: 250px; /* Taille ajustée */
+    padding: 12px;
+    background-color: rgba(59, 244, 218, 0.7); /* Même couleur que les autres boutons */
+    color: #fff;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none; /* Supprimer le soulignement des liens */
+    margin: 20px auto; /* Centrer le bouton */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.location-btn:hover {
+    background-color: rgba(59, 244, 218, 0.9);
+}
+
+/* Lien retour */
+.back-link {
+    text-align: center;
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #b0b0b0;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
