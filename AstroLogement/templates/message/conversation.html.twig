@@ -3,25 +3,74 @@
 {% block title %}Messagerie{% endblock %}
 
 {% block body %}
+
+    <div class="retour">
+        <a href="{{ path('app_message_home') }}" class="back-button">← Retour</a>
+    </div>
+    
     <h2>Conversation avec {{ receiver }}</h2>
 
     <div id="messages-container">
         {% include 'message/_messages.html.twig' %}
+        <div id="scroll-anchor"></div>
     </div>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+        <label for="image-upload" class="image-upload-label">📎</label>
+        <input type="file" id="image-upload" name="image" />
+
+        {{ form_widget(form.contenu, {
+            'attr': {
+                'placeholder': 'Écris ton message ici...'
+            }
+        }) }}
+
         <button type="submit">Envoyer</button>
     {{ form_end(form) }}
 
     <script>
-        // Rafraîchit les messages toutes les 5 secondes
-        setInterval(() => {
+        const scrollToBottom = () => {
+            const container = document.getElementById('messages-container');
+            container.scrollTop = container.scrollHeight;
+        };
+
+        const refreshMessages = () => {
             fetch('{{ path("app_messages_refresh", {"id": receiver.id}) }}')
                 .then(response => response.text())
                 .then(html => {
-                    document.getElementById('messages-container').innerHTML = html;
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = html;
+
+                    const newMessages = tempDiv.querySelector("#messages-container").innerHTML;
+                    document.getElementById('messages-container').innerHTML = newMessages;
+
+                    scrollToBottom();
                 });
-        }, 5000);
+        };
+
+        scrollToBottom(); // au chargement
+        setInterval(refreshMessages, 5000);
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const textarea = document.querySelector('textarea');
+            const form = document.querySelector('form');
+
+            textarea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault(); // empêche retour à la ligne
+                    form.submit();     // envoie le formulaire
+                }
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const anchor = document.getElementById('scroll-anchor');
+            if (anchor) anchor.scrollIntoView({ behavior: 'instant' });
+        });
+    </script>
+
+
+
 {% endblock %}
