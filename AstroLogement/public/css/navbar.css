@@ -208,6 +208,19 @@
     cursor: pointer;
 }
 
+.account-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.account-link:hover {
+    color: #3de1fc;
+}
+
+
 
 /* Avatar */
 .avatar-link {

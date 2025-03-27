@@ -40,8 +40,12 @@
 
                 <div class="side-menu">
                     <div class="side-menu-header">
-                        <span>Your account</span>
-                        <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar">
+                        <a href="{{ app.user ? path('app_profile') : path('app_login') }}" class="account-link">
+                            Your account
+                        </a>
+                        <a href="{{ app.user ? path('app_profile') : path('app_login') }}">
+                            <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar">
+                        </a>
                     </div>
 
                     <ul class="side-menu-links">
