@@ -20,12 +20,14 @@
 
                 <div class="navbar-center">
                     <a href="{{ path('app_location_index') }}" class="astro-link {% if app.request.attributes.get('_route') starts with 'app_location' %}active{% endif %}">Logements</a>
-
+                    {% if app.user %}
                     <a href="{{ path('app_reservation_index') }}" class="astro-link {% if app.request.attributes.get('_route') starts with 'app_reservation' %}active{% endif %}">Mes expéditions</a>
+                    {% endif %}
                 </div>
 
             </div>
 
+            {% if app.user %}
             <div class="navbar-right">
                 <input type="checkbox" id="menu-toggle" class="menu-toggle">
                 
@@ -40,10 +42,10 @@
 
                 <div class="side-menu">
                     <div class="side-menu-header">
-                        <a href="{{ app.user ? path('app_profil') : path('app_login') }}" class="account-link">
-                            Your account
+                        <a href="{{ app.user ? path('app_reservation_index') : path('app_login') }}" class="account-link">
+                            Votre compte
                         </a>
-                        <a href="{{ app.user ? path('app_profil') : path('app_login') }}">
+                        <a href="{{ app.user ? path('app_reservation_index') : path('app_login') }}">
                             <img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar">
                         </a>
                     </div>
@@ -60,6 +62,18 @@
 
                 </div>
             </div>
+            {% else %}
+            <div class="navbar-right">
+                <div class="astro-box expanded-toggle">
+                    <a href="{{ path('app_login') }}"><div class="hamburger-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div></a>
+                <a href="{{ path('app_login') }}"><img src="{{ asset('images/avatar.png') }}" alt="Avatar" class="astro-avatar"></a>
+                </div>
+            </div>
+            {% endif %}
 
 
 
