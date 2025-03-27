@@ -150,17 +150,22 @@
     background-color: rgba(59, 244, 218, 0.9);
 }
 
-/* Lien retour */
+/* Lien "Back to list" en haut à gauche */
 .back-link {
-    text-align: center;
-    display: inline-block;
-    margin-top: 20px;
+    position: absolute;
+    top: 170px;
+    left: 20px;
     font-size: 14px;
     color: #b0b0b0;
     text-decoration: none;
+    font-weight: bold;
+    background-color: rgba(56, 56, 56, 0.7);
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
 }
 
 .back-link:hover {
+    background-color: rgba(56, 56, 56, 0.9);
     text-decoration: underline;
 }
-
