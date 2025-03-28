@@ -8,79 +8,62 @@
 
 {% block body %}
 
-    <div class="retour">
-        <a href="{{ path('app_message_home') }}" class="back-button">← Retour</a>
-    </div>
-    
-    <div class="stars-background">
+<div class="retour">
+    <a href="{{ path('app_message_home') }}" class="back-button">← Retour</a>
+</div>
+
+<div class="stars-background">
     {% for i in 0..80 %}
         <div class="star" style="top: {{ random(0,100) }}%; left: {{ random(0,100) }}%; animation-delay: {{ random(0,2000) }}ms;"></div>
     {% endfor %}
-    </div>
+</div>
 
-    <h2>Conversation avec {{ receiver }}</h2>
+<h2>Conversation avec {{ receiver }}</h2>
 
-    <div id="messages-container">
+<div id="messages-container">
+    <div id="messages-list">
         {% include 'message/_messages.html.twig' %}
-        <div id="scroll-anchor"></div>
     </div>
+</div>
 
-    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
-        <label for="image-upload" class="image-upload-label">📎</label>
-        <input type="file" id="image-upload" name="image" />
+{{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+    <label for="image-upload" class="image-upload-label">📎</label>
+    <input type="file" id="image-upload" name="image" />
+    {{ form_widget(form.contenu, {'attr': {'placeholder': 'Écris ton message ici...'}}) }}
+    <button type="submit">Envoyer</button>
+{{ form_end(form) }}
 
-        {{ form_widget(form.contenu, {
-            'attr': {
-                'placeholder': 'Écris ton message ici...'
-            }
-        }) }}
+<script>
+    const scrollToBottom = () => {
+        const container = document.getElementById('messages-container');
+        container.scrollTop = container.scrollHeight;
+    };
 
-        <button type="submit">Envoyer</button>
-    {{ form_end(form) }}
-
-    <script>
-        const scrollToBottom = () => {
-            const container = document.getElementById('messages-container');
-            container.scrollTop = container.scrollHeight;
-        };
-
-        const refreshMessages = () => {
-            fetch('{{ path("app_messages_refresh", {"id": receiver.id}) }}')
-                .then(response => response.text())
-                .then(html => {
-                    const tempDiv = document.createElement('div');
-                    tempDiv.innerHTML = html;
-
-                    const newMessages = tempDiv.querySelector("#messages-container").innerHTML;
-                    document.getElementById('messages-container').innerHTML = newMessages;
-
-                    scrollToBottom();
-                });
-        };
-
-        scrollToBottom(); // au chargement
-        setInterval(refreshMessages, 5000);
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const textarea = document.querySelector('textarea');
-            const form = document.querySelector('form');
-
-            textarea.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault(); // empêche retour à la ligne
-                    form.submit();     // envoie le formulaire
-                }
+    const refreshMessages = () => {
+        fetch('{{ path("app_messages_refresh", {"id": receiver.id}) }}')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('messages-list').innerHTML = html;
+                scrollToBottom();
             });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const anchor = document.getElementById('scroll-anchor');
-            if (anchor) anchor.scrollIntoView({ behavior: 'instant' });
-        });
-    </script>
+    };
 
+    scrollToBottom(); // au chargement
+    setInterval(refreshMessages, 2500);
+</script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const textarea = document.querySelector('textarea');
+        const form = document.querySelector('form');
+
+        textarea.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                form.submit();
+            }
+        });
+    });
+</script>
 
 {% endblock %}
