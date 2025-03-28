@@ -22,36 +22,21 @@
 
 </div>
 
-<h1>Reservations de cette location</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Confirm</th>
-                <th>Debut</th>
-                <th>Fin</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="location-container">
+    <h1 class="location-title">Reservations de cette location</h1>
+        <div class="location-box">
         {% for reservation in location.reservations %}
-            <tr>
-                <td>{{ reservation.id }}</td>
-                <td>{{ reservation.confirm ? 'Yes' : 'No' }}</td>
-                <td>{{ reservation.debut ? reservation.debut|date('Y-m-d') : '' }}</td>
-                <td>{{ reservation.fin ? reservation.fin|date('Y-m-d') : '' }}</td>
-                <td>
-                    {{ reservation.confirm ? '' : "{{ include('reservation/_accept_form.html.twig') }}" }}
-                    {{ include('reservation/_delete_form.html.twig') }}
-                </td>
-            </tr>
+            <p>Réservation de {{ reservation.user.prenom }} {{ reservation.user.nom }}</p>
+            <p>Confirmée : {{ reservation.confirm ? 'Oui' : 'Non' }}</p>
+            <p>Date de début : {{ reservation.debut ? reservation.debut|date('Y-m-d') : '' }}
+                Date de fin : {{ reservation.fin ? reservation.fin|date('Y-m-d') : '' }}</p>
+            <p>
+                {{ reservation.confirm ? '' : include('reservation/_accept_form.html.twig') }}
+                {{ include('reservation/_delete_form.html.twig') }}
+            </p>
         {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
+            <p>no records found</p>
         {% endfor %}
-        </tbody>
-    </table>
-
+    </div>
+</div>
 {% endblock %}
