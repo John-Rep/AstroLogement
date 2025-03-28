@@ -75,5 +75,5 @@ jobs:
         with:
           app-name: 'AstroLogement'
           slot-name: 'Production'
-          package: ./AstroLogement
+          package: ./AstroLogement/public
           
