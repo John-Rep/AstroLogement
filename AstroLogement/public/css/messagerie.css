@@ -422,3 +422,11 @@ button:hover {
     100% { opacity: 1; transform: scale(2); }
   }
   
+  @keyframes pop {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .message {
+    animation: pop 0.3s ease-out;
+  }
+  

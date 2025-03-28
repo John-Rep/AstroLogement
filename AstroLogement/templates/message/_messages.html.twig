@@ -18,8 +18,7 @@
 
             <div class="bubble">
                 <p>{{ message.contenu }}</p>
-                <small>{{ message.date|date('H:i', 'Europe/Paris') }}
-</small>
+                <small>{{ message.date|date('H:i') }}</small>
 
                 {% if message.userOrig == app.user %}
                     <span class="sent-check">✔️</span>
