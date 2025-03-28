@@ -11,7 +11,7 @@
 <a class="back-link" href="{{ path('app_reservation_index') }}">Back to list</a>
 
 <main class="reservation-container">
-    <form class="reservation-form">
+    <div class="reservation-form">
         <h1 class="reservation-title">Choisir les dates de votre réservation</h1>
 
         <!-- Affichage des messages d'erreur -->
@@ -32,6 +32,6 @@
         <button type="submit" class="reservation-btn">Réserver</button>
 
         {{ form_end(form) }}
-    </form>
+    </div>
 </main>
 {% endblock %}
