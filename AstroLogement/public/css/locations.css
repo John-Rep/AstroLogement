@@ -1,44 +1,29 @@
 .location-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* ✅ centre les cartes horizontalement */
+    justify-content: center;
     gap: 40px;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 60px auto;
 }
 
 .location-card {
-    width: 240px;
-    height: 350px; /* ✅ Hauteur fixe pour égaliser les cartes */
+    width: 320px;
     background-color: #2C2C2C;
-    border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 0 10px rgba(61, 225, 252, 0.1);
     transition: transform 0.2s ease;
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    border-radius: 0; /* ❌ Aucun arrondi global */
 }
-
-.location-card .card-price {
-    color: white;
-    font-weight: bold;
-    font-size: 1.1rem;
-    text-decoration: none;
-    pointer-events: none; /* <== Désactive le clic uniquement sur ce bloc */
-}
-
-
 
 .location-card:hover {
     transform: scale(1.02);
 }
 
 .card-image {
-    position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1; /* ✅ Carré parfait */
     overflow: hidden;
 }
 
@@ -47,34 +32,39 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 10px; /* ✅ Arrondi uniquement l'image */
 }
-
-.card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: bold;
-    color: white;
-}
-
-.rating {
-    font-size: 0.95rem;
-    color: white;
-}
-
-
 
 .card-body {
     padding: 12px 14px;
     color: white;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    border-radius: 0; /* ❌ Pas d’arrondi en bas */
 }
 
-.card-body strong {
-    font-size: 1.05rem;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.card-header strong {
+    flex: 1;
+    word-break: break-word;
+    margin-right: 6px;
+}
+
+.rating {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.95rem;
     color: white;
 }
 
@@ -84,9 +74,23 @@
 }
 
 .card-price {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: bold;
+    color: white;
 }
+
+.location-card a {
+    text-decoration: none !important;
+    color: inherit;
+}
+.location-card a:visited,
+.location-card a:focus,
+.location-card a:hover,
+.location-card a:active {
+    text-decoration: none !important;
+    color: inherit;
+}
+
 
 .location-container {
     display: flex;
